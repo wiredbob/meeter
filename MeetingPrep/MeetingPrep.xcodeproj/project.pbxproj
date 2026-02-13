@@ -14,17 +14,23 @@
 		A1000009000000000000001 /* Summary.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000010000000000000001 /* Summary.swift */; };
 		A1000027000000000000001 /* MockSummarisationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000028000000000000001 /* MockSummarisationService.swift */; };
 		A1000030000000000000001 /* ExportService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000031000000000000001 /* ExportService.swift */; };
+		E1B7EF032F3FDA8400C65F40 /* ParsedDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1B7EF022F3FDA8400C65F40 /* ParsedDocument.swift */; };
+		E1B7EF0B2F3FDB8100C65F40 /* TranscriptParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1B7EF092F3FDB8100C65F40 /* TranscriptParser.swift */; };
+		E1B7EF0C2F3FDB8100C65F40 /* PresentationParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1B7EF082F3FDB8100C65F40 /* PresentationParser.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		A1000011000000000000001 /* MeetingPrep.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MeetingPrep.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1000002000000000000001 /* MeetingPrepApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingPrepApp.swift; sourceTree = "<group>"; };
 		A1000004000000000000001 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		A1000006000000000000001 /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 		A1000008000000000000001 /* Document.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
 		A1000010000000000000001 /* Summary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Summary.swift; sourceTree = "<group>"; };
+		A1000011000000000000001 /* MeetingPrep.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MeetingPrep.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1000028000000000000001 /* MockSummarisationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSummarisationService.swift; sourceTree = "<group>"; };
 		A1000031000000000000001 /* ExportService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportService.swift; sourceTree = "<group>"; };
+		E1B7EF022F3FDA8400C65F40 /* ParsedDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParsedDocument.swift; sourceTree = "<group>"; };
+		E1B7EF082F3FDB8100C65F40 /* PresentationParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationParser.swift; sourceTree = "<group>"; };
+		E1B7EF092F3FDB8100C65F40 /* TranscriptParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranscriptParser.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,15 +63,6 @@
 			path = MeetingPrep;
 			sourceTree = "<group>";
 		};
-		A1000029000000000000001 /* Services */ = {
-			isa = PBXGroup;
-			children = (
-				A1000028000000000000001 /* MockSummarisationService.swift */,
-				A1000031000000000000001 /* ExportService.swift */,
-			);
-			path = Services;
-			sourceTree = "<group>";
-		};
 		A1000015000000000000001 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -77,11 +74,31 @@
 		A1000016000000000000001 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				E1B7EF022F3FDA8400C65F40 /* ParsedDocument.swift */,
 				A1000006000000000000001 /* Project.swift */,
 				A1000008000000000000001 /* Document.swift */,
 				A1000010000000000000001 /* Summary.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		A1000029000000000000001 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				E1B7EF0A2F3FDB8100C65F40 /* Parsers */,
+				A1000028000000000000001 /* MockSummarisationService.swift */,
+				A1000031000000000000001 /* ExportService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		E1B7EF0A2F3FDB8100C65F40 /* Parsers */ = {
+			isa = PBXGroup;
+			children = (
+				E1B7EF082F3FDB8100C65F40 /* PresentationParser.swift */,
+				E1B7EF092F3FDB8100C65F40 /* TranscriptParser.swift */,
+			);
+			path = Parsers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -153,10 +170,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				A1000001000000000000001 /* MeetingPrepApp.swift in Sources */,
+				E1B7EF0B2F3FDB8100C65F40 /* TranscriptParser.swift in Sources */,
+				E1B7EF0C2F3FDB8100C65F40 /* PresentationParser.swift in Sources */,
 				A1000003000000000000001 /* ContentView.swift in Sources */,
 				A1000005000000000000001 /* Project.swift in Sources */,
 				A1000007000000000000001 /* Document.swift in Sources */,
 				A1000009000000000000001 /* Summary.swift in Sources */,
+				E1B7EF032F3FDA8400C65F40 /* ParsedDocument.swift in Sources */,
 				A1000027000000000000001 /* MockSummarisationService.swift in Sources */,
 				A1000030000000000000001 /* ExportService.swift in Sources */,
 			);

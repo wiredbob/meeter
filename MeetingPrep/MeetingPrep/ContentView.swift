@@ -404,6 +404,16 @@ struct ProjectDetailView: View {
         guard case .success(let urls) = result else { return }
 
         for url in urls {
+            // Start accessing security-scoped resource
+            guard url.startAccessingSecurityScopedResource() else {
+                print("Failed to access security-scoped resource for: \(url)")
+                continue
+            }
+
+            defer {
+                url.stopAccessingSecurityScopedResource()
+            }
+
             // Create document
             let fileName = url.lastPathComponent
             let fileType = DocumentType.from(url: url)
@@ -425,15 +435,27 @@ struct ProjectDetailView: View {
                 processingDocuments.insert(document.id)
             }
 
-            // Generate mocked summary
+            // Generate summary using real file parsing
             do {
-                let summary = try await mockService.generateSummary(for: document)
+                let summary = try await mockService.generateSummary(for: document, fileURL: url)
                 summary.document = document
                 document.summary = summary
                 modelContext.insert(summary)
                 try? modelContext.save()
             } catch {
                 print("Failed to generate summary: \(error)")
+                // Create error summary
+                let errorSummary = Summary(
+                    headline: "Error parsing \(document.fileName)",
+                    keyPoints: ["Error: \(error.localizedDescription)"],
+                    actionItems: [],
+                    participants: [],
+                    fullSummary: "Failed to parse file: \(error.localizedDescription)"
+                )
+                errorSummary.document = document
+                document.summary = errorSummary
+                modelContext.insert(errorSummary)
+                try? modelContext.save()
             }
 
             // Remove from processing
@@ -509,7 +531,7 @@ struct DocumentRow: View {
     }
 }
 
-// MARK: - Summary Detail View (Build 3)
+// MARK: - Summary Detail View (Build 4)
 
 struct SummaryDetailView: View {
     let document: Document
@@ -517,58 +539,106 @@ struct SummaryDetailView: View {
 
     @State private var showingExportMenu = false
     @State private var copiedSection: String?
+    @State private var selectedTab: SummaryTab = .summary
+
+    enum SummaryTab: String, CaseIterable {
+        case summary = "Summary"
+        case raw = "Raw Text"
+    }
 
     var body: some View {
+        VStack(spacing: 0) {
+            // Header with tabs and export button
+            HStack {
+                Picker("View", selection: $selectedTab) {
+                    ForEach(SummaryTab.allCases, id: \.self) { tab in
+                        Text(tab.rawValue).tag(tab)
+                    }
+                }
+                .pickerStyle(.segmented)
+                .frame(width: 200)
+
+                Spacer()
+
+                // Export menu
+                Menu {
+                    Button {
+                        ExportService.copyToClipboard(summary: summary, document: document, format: .markdown)
+                        showCopiedToast()
+                    } label: {
+                        Label("Copy as Markdown", systemImage: "doc.on.clipboard")
+                    }
+
+                    Button {
+                        ExportService.copyToClipboard(summary: summary, document: document, format: .plainText)
+                        showCopiedToast()
+                    } label: {
+                        Label("Copy as Text", systemImage: "doc.plaintext")
+                    }
+
+                    Divider()
+
+                    Button {
+                        ExportService.saveToFile(summary: summary, document: document, format: .markdown)
+                    } label: {
+                        Label("Export as Markdown...", systemImage: "square.and.arrow.down")
+                    }
+
+                    Button {
+                        ExportService.saveToFile(summary: summary, document: document, format: .plainText)
+                    } label: {
+                        Label("Export as Text...", systemImage: "square.and.arrow.down")
+                    }
+                } label: {
+                    Label("Export", systemImage: "square.and.arrow.up")
+                }
+                .menuStyle(.borderlessButton)
+                .fixedSize()
+            }
+            .padding()
+            .background(Color(nsColor: .controlBackgroundColor))
+
+            Divider()
+
+            // Content based on selected tab
+            Group {
+                switch selectedTab {
+                case .summary:
+                    formattedSummaryView
+                case .raw:
+                    rawTextView
+                }
+            }
+        }
+        .overlay(alignment: .top) {
+            if copiedSection != nil {
+                Text("Copied!")
+                    .font(.caption)
+                    .padding(.horizontal, 12)
+                    .padding(.vertical, 6)
+                    .background(.green.opacity(0.9))
+                    .foregroundStyle(.white)
+                    .clipShape(Capsule())
+                    .padding(.top, 8)
+                    .transition(.move(edge: .top).combined(with: .opacity))
+            }
+        }
+    }
+
+    // MARK: - Formatted Summary View
+
+    private var formattedSummaryView: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 24) {
-                // Header with Export Button
-                HStack(alignment: .top) {
-                    VStack(alignment: .leading, spacing: 8) {
-                        Text(document.fileName)
-                            .font(.caption)
-                            .foregroundStyle(.secondary)
+                // Document name
+                Text(document.fileName)
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
 
-                        Text(summary.headline)
-                            .font(.title)
-                            .fontWeight(.semibold)
-                    }
-
-                    Spacer()
-
-                    Menu {
-                        Button {
-                            ExportService.copyToClipboard(summary: summary, document: document, format: .markdown)
-                            showCopiedToast()
-                        } label: {
-                            Label("Copy as Markdown", systemImage: "doc.on.clipboard")
-                        }
-
-                        Button {
-                            ExportService.copyToClipboard(summary: summary, document: document, format: .plainText)
-                            showCopiedToast()
-                        } label: {
-                            Label("Copy as Text", systemImage: "doc.plaintext")
-                        }
-
-                        Divider()
-
-                        Button {
-                            ExportService.saveToFile(summary: summary, document: document, format: .markdown)
-                        } label: {
-                            Label("Export as Markdown...", systemImage: "square.and.arrow.down")
-                        }
-
-                        Button {
-                            ExportService.saveToFile(summary: summary, document: document, format: .plainText)
-                        } label: {
-                            Label("Export as Text...", systemImage: "square.and.arrow.down")
-                        }
-                    } label: {
-                        Label("Export", systemImage: "square.and.arrow.up")
-                    }
-                    .menuStyle(.borderlessButton)
-                    .fixedSize()
-                }
+                // Headline
+                Text(summary.headline)
+                    .font(.title)
+                    .fontWeight(.semibold)
 
                 Divider()
 
@@ -668,6 +738,7 @@ struct SummaryDetailView: View {
                     Text(summary.fullSummary)
                         .font(.body)
                         .lineSpacing(4)
+                        .textSelection(.enabled)
                 }
 
                 // Metadata
@@ -688,17 +759,73 @@ struct SummaryDetailView: View {
             .padding()
             .frame(maxWidth: .infinity, alignment: .leading)
         }
-        .overlay(alignment: .top) {
-            if copiedSection != nil {
-                Text("Copied!")
-                    .font(.caption)
-                    .padding(.horizontal, 12)
-                    .padding(.vertical, 6)
-                    .background(.green.opacity(0.9))
-                    .foregroundStyle(.white)
-                    .clipShape(Capsule())
-                    .padding(.top, 8)
-                    .transition(.move(edge: .top).combined(with: .opacity))
+    }
+
+    // MARK: - Raw Text View
+
+    private var rawTextView: some View {
+        ScrollView {
+            VStack(alignment: .leading, spacing: 16) {
+                // File info header
+                HStack {
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text(document.fileName)
+                            .font(.title3)
+                            .fontWeight(.semibold)
+
+                        HStack(spacing: 12) {
+                            Label(document.fileType.displayName, systemImage: document.fileType.iconName)
+                                .font(.caption)
+                                .foregroundStyle(.secondary)
+
+                            Label(document.fileSizeFormatted, systemImage: "doc")
+                                .font(.caption)
+                                .foregroundStyle(.secondary)
+
+                            Label("\(summary.fullSummary.count) chars", systemImage: "text.alignleft")
+                                .font(.caption)
+                                .foregroundStyle(.secondary)
+                        }
+                    }
+
+                    Spacer()
+
+                    // Copy raw text button
+                    Button {
+                        copyRawText()
+                    } label: {
+                        Label("Copy", systemImage: copiedSection == "raw" ? "checkmark" : "doc.on.doc")
+                            .foregroundStyle(copiedSection == "raw" ? .green : .secondary)
+                    }
+                    .buttonStyle(.borderless)
+                }
+
+                Divider()
+
+                // Raw extracted text (monospaced for better readability)
+                Text(summary.fullSummary)
+                    .font(.system(.body, design: .monospaced))
+                    .textSelection(.enabled)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+            }
+            .padding()
+        }
+    }
+
+    // MARK: - Helper Methods
+
+    private func copyRawText() {
+        let pasteboard = NSPasteboard.general
+        pasteboard.clearContents()
+        pasteboard.setString(summary.fullSummary, forType: .string)
+
+        withAnimation {
+            copiedSection = "raw"
+        }
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+            withAnimation {
+                copiedSection = nil
             }
         }
     }

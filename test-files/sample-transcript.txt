@@ -1,0 +1,37 @@
+Product Strategy Meeting - January 15, 2026
+
+Attendees: Sarah Chen (CEO), Mike Rodriguez (CTO), Alex Kim (VP Product), Jordan Taylor (Engineering Manager)
+
+Sarah Chen: Good morning everyone. Today we need to finalize our Q1 roadmap and discuss resource allocation.
+
+Mike Rodriguez: Thanks for setting this up, Sarah. I've reviewed the engineering capacity and we have bandwidth for two major features this quarter.
+
+Alex Kim: From a product perspective, I strongly recommend we prioritize Feature X. Our customer research shows it's the most requested capability.
+
+Sarah Chen: I agree with Alex. Feature X has been coming up in every customer conversation. What's the timeline if we commit to it?
+
+Mike Rodriguez: If we start next week, we can hit a March 15 release. But we'll need to hire two additional engineers to make that happen.
+
+Jordan Taylor: I can help with the hiring. We should post those positions by end of this week.
+
+Alex Kim: Perfect. I'll work with marketing to align the campaign launch with the product release.
+
+Sarah Chen: Great. Mike, can you draft the technical specification by Friday?
+
+Mike Rodriguez: Absolutely. I'll have a detailed spec ready for review.
+
+Sarah Chen: One more thing - I'd like to move our weekly sync meetings to Tuesday mornings. Does that work for everyone?
+
+Jordan Taylor: Works for me.
+
+Alex Kim: Tuesday is good.
+
+Mike Rodriguez: No conflicts on my end.
+
+Sarah Chen: Excellent. Let's reconvene on Tuesday at 10am to review the spec. Thanks everyone!
+
+ACTION ITEMS:
+- Mike: Draft technical spec for Feature X (Due: January 20)
+- Jordan: Post engineering job listings (Due: This week)
+- Alex: Finalize marketing timeline with marketing team (Due: January 25)
+- All: Review technical spec before Tuesday meeting
