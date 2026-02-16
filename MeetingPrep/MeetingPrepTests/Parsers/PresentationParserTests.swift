@@ -29,7 +29,7 @@ final class PresentationParserTests: XCTestCase {
 
     func testParsePDFSinglePage() throws {
         // Given
-        let pdfURL = tempDirectory.appendingPathComponent("test.pdf")
+        let pdfURL = tempDirectory.appendingPathComponent("NI-GAS-TCs-V15.pdf")
         let testText = "This is a test PDF document.\nIt contains some sample text."
 
         // Create a simple PDF with PDFKit

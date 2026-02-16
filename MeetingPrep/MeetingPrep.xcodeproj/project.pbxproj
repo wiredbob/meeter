@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -19,6 +19,16 @@
 		E1B7EF0C2F3FDB8100C65F40 /* PresentationParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1B7EF082F3FDB8100C65F40 /* PresentationParser.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		E1B7EF152F3FDED100C65F40 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A1000021000000000000001 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A1000017000000000000001;
+			remoteInfo = MeetingPrep;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		A1000002000000000000001 /* MeetingPrepApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingPrepApp.swift; sourceTree = "<group>"; };
 		A1000004000000000000001 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -31,10 +41,22 @@
 		E1B7EF022F3FDA8400C65F40 /* ParsedDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParsedDocument.swift; sourceTree = "<group>"; };
 		E1B7EF082F3FDB8100C65F40 /* PresentationParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationParser.swift; sourceTree = "<group>"; };
 		E1B7EF092F3FDB8100C65F40 /* TranscriptParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranscriptParser.swift; sourceTree = "<group>"; };
+		E1B7EF112F3FDED100C65F40 /* MeetingPrepTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MeetingPrepTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		E1B7EF122F3FDED100C65F40 /* MeetingPrepTests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = MeetingPrepTests; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		A1000012000000000000001 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E1B7EF0E2F3FDED100C65F40 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -48,6 +70,7 @@
 			isa = PBXGroup;
 			children = (
 				A1000014000000000000001 /* MeetingPrep */,
+				E1B7EF122F3FDED100C65F40 /* MeetingPrepTests */,
 				A1000015000000000000001 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -67,6 +90,7 @@
 			isa = PBXGroup;
 			children = (
 				A1000011000000000000001 /* MeetingPrep.app */,
+				E1B7EF112F3FDED100C65F40 /* MeetingPrepTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -121,6 +145,29 @@
 			productReference = A1000011000000000000001 /* MeetingPrep.app */;
 			productType = "com.apple.product-type.application";
 		};
+		E1B7EF102F3FDED100C65F40 /* MeetingPrepTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E1B7EF172F3FDED100C65F40 /* Build configuration list for PBXNativeTarget "MeetingPrepTests" */;
+			buildPhases = (
+				E1B7EF0D2F3FDED100C65F40 /* Sources */,
+				E1B7EF0E2F3FDED100C65F40 /* Frameworks */,
+				E1B7EF0F2F3FDED100C65F40 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E1B7EF162F3FDED100C65F40 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				E1B7EF122F3FDED100C65F40 /* MeetingPrepTests */,
+			);
+			name = MeetingPrepTests;
+			packageProductDependencies = (
+			);
+			productName = MeetingPrepTests;
+			productReference = E1B7EF112F3FDED100C65F40 /* MeetingPrepTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -128,11 +175,15 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1500;
+				LastSwiftUpdateCheck = 2620;
 				LastUpgradeCheck = 1500;
 				TargetAttributes = {
 					A1000017000000000000001 = {
 						CreatedOnToolsVersion = 15.0;
+					};
+					E1B7EF102F3FDED100C65F40 = {
+						CreatedOnToolsVersion = 26.2;
+						TestTargetID = A1000017000000000000001;
 					};
 				};
 			};
@@ -150,12 +201,20 @@
 			projectRoot = "";
 			targets = (
 				A1000017000000000000001 /* MeetingPrep */,
+				E1B7EF102F3FDED100C65F40 /* MeetingPrepTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		A1000020000000000000001 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E1B7EF0F2F3FDED100C65F40 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -182,7 +241,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		E1B7EF0D2F3FDED100C65F40 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		E1B7EF162F3FDED100C65F40 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A1000017000000000000001 /* MeetingPrep */;
+			targetProxy = E1B7EF152F3FDED100C65F40 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		A1000023000000000000001 /* Debug */ = {
@@ -357,6 +431,46 @@
 			};
 			name = Release;
 		};
+		E1B7EF182F3FDED100C65F40 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 26.1;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.wiredbob.MeetingPrepTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MeetingPrep.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MeetingPrep";
+			};
+			name = Debug;
+		};
+		E1B7EF192F3FDED100C65F40 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 26.1;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.wiredbob.MeetingPrepTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MeetingPrep.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MeetingPrep";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -374,6 +488,15 @@
 			buildConfigurations = (
 				A1000023000000000000001 /* Debug */,
 				A1000024000000000000001 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E1B7EF172F3FDED100C65F40 /* Build configuration list for PBXNativeTarget "MeetingPrepTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E1B7EF182F3FDED100C65F40 /* Debug */,
+				E1B7EF192F3FDED100C65F40 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
